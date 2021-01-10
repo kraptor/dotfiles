@@ -139,7 +139,7 @@ class InstallMode(enum.Enum):
 def _install_config(name: str, source: str, target_folder: str, *, overwrite=False, mode: InstallMode=InstallMode.Copy) -> bool:
     prefix = get_config_prefix(name)
     assert source.startswith(prefix)
-    
+
     sub_path = os.path.relpath(source, prefix)
     final_location = os.path.join(target_folder, sub_path)
     final_folder = os.path.dirname(final_location)
@@ -167,7 +167,7 @@ def _install_config(name: str, source: str, target_folder: str, *, overwrite=Fal
         shutil.copy(source, final_location)
         return True
     elif mode == InstallMode.Link:
-        info(f"Creating symlink: {final_location}")
+        # info(f"Creating symlink: {final_location}")
         if not os.path.exists(final_folder):
             os.makedirs(final_folder, exist_ok=True)
         if os.path.exists(final_location):
@@ -184,11 +184,7 @@ def install_config(name: str, *, mode: InstallMode = InstallMode.Copy, overwrite
         error("Config doesn't exist", exit_status=-1)
 
     info(f"Installing config for: {name}")
-    info(f"- Overwrite files?: {overwrite}")
-    info(f"- Install mode: {mode.name}")
-
     target = get_config_target(name)
-    info(f"- Target: {target}")    
 
     for root, _, files in os.walk(location):
         # for dir in dirs:
@@ -222,22 +218,20 @@ def list(args):
     , arg("--mode", help="Set installation mode: link, copy", default="link", choices=["copy", "link"])
 ])
 def install(args):
+    mode = args.mode
+    if   mode == "link": mode = InstallMode.Link
+    elif mode == "copy": mode = InstallMode.Copy
+    else:
+        error(f"Unsupported install mode: {args.mode}", exit_status=-1)
+    
+    info(f"Overwrite: {args.overwrite} | Mode: {mode.name}")
+
     if not args.name:
         if "yes" == ask("Install all configuration files?", ["yes", "no"], one_shot=True):
             for name, _ in get_config_list():
-                warning(f"TODO: install everything: {name}")
-        return
-
-    if   args.mode == "link": mode = InstallMode.Link
-    elif args.mode == "copy": mode = InstallMode.Copy
+                install_config(name, overwrite=args.overwrite, mode=mode)
     else:
-        error(f"Unsupoorted intall mode: {args.mode}", exit_status=-1)
-    
-    install_config(
-        args.name,
-        overwrite=args.overwrite,
-        mode=mode
-    )
+        install_config(args.name, overwrite=args.overwrite, mode=mode)
 
 # Main ------------------------------------------------------------------------
 
