@@ -1,3 +1,4 @@
+from genericpath import exists
 from typing import List, Optional, Tuple, Iterable
 
 import os
@@ -129,7 +130,13 @@ def get_diff(source_file: str, target_file: str) -> Iterable[str]:
             return diff
 
 
-def _copy_config(name: str, source: str, target_folder: str, *, overwrite=False) -> bool:
+
+class InstallMode(enum.Enum):
+    Copy = 0 # Copy files to final location (cp)
+    Link = 1 # Link files to final location (akin to ln -s)
+
+
+def _install_config(name: str, source: str, target_folder: str, *, overwrite=False, mode: InstallMode=InstallMode.Copy) -> bool:
     prefix = get_config_prefix(name)
     assert source.startswith(prefix)
     
@@ -155,14 +162,20 @@ def _copy_config(name: str, source: str, target_folder: str, *, overwrite=False)
         error("", exit_status=-1)
         return False
     
-    os.makedirs(final_folder, exist_ok=True)
-    shutil.copy(source, final_location)
-    return True
-    
-
-class InstallMode(enum.Enum):
-    Copy = 0 # Copy files to final location (cp)
-    Link = 1 # Link files to final location (akin to ln -s)
+    if mode == InstallMode.Copy:
+        os.makedirs(final_folder, exist_ok=True)
+        shutil.copy(source, final_location)
+        return True
+    elif mode == InstallMode.Link:
+        info(f"Creating symlink: {final_location}")
+        if not os.path.exists(final_folder):
+            os.makedirs(final_folder, exist_ok=True)
+        if os.path.exists(final_location):
+            os.unlink(final_location)
+        os.symlink(source, final_location)
+        return True
+    else:
+        error(f"Install mode not supported: {mode}", exit_status=-1)
 
 
 def install_config(name: str, *, mode: InstallMode = InstallMode.Copy, overwrite=False) -> bool:
@@ -182,10 +195,10 @@ def install_config(name: str, *, mode: InstallMode = InstallMode.Copy, overwrite
         #     info(os.path.join(root, dir))
         for file in files:
             # info(os.path.join(root, file))
-            if mode == InstallMode.Copy:
-                source_path = os.path.abspath(os.path.join(root, file))
-                if not _copy_config(name, source_path, target, overwrite=overwrite):
-                    error("Cannot copy file to target. Does the file exist already?")
+            source_path = os.path.abspath(os.path.join(root, file))
+            if not _install_config(name, source_path, target, overwrite=overwrite, mode=mode):
+                error("Can't copy file to target. Does the file exist already?", exit_status=-1)
+            
 
     message = get_config_message(name)
     if len(message) > 0:
@@ -206,6 +219,7 @@ def list(args):
 @command([
     arg("-n", "--name", help="Name of the config to install", required=False)
     , arg("--overwrite", help="Overwrite all config files", required=False, default=False, action="store_true")
+    , arg("--mode", help="Set installation mode: link, copy", default="link", choices=["copy", "link"])
 ])
 def install(args):
     if not args.name:
@@ -213,9 +227,16 @@ def install(args):
             for name, _ in get_config_list():
                 warning(f"TODO: install everything: {name}")
         return
+
+    if   args.mode == "link": mode = InstallMode.Link
+    elif args.mode == "copy": mode = InstallMode.Copy
+    else:
+        error(f"Unsupoorted intall mode: {args.mode}", exit_status=-1)
+    
     install_config(
         args.name,
-        overwrite=args.overwrite
+        overwrite=args.overwrite,
+        mode=mode
     )
 
 # Main ------------------------------------------------------------------------
