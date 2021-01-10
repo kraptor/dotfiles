@@ -11,7 +11,7 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'preservim/nerdcommenter'
 Plug 'easymotion/vim-easymotion'
 " CoC needs NodeJS and yarn
-Plug 'neoclide/coc.nvim' , { 'branch' : 'release' }
+" Plug 'neoclide/coc.nvim' , { 'branch' : 'release' }
 
 " Initialize plugin system
 call plug#end()

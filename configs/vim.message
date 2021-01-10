@@ -1,0 +1,4 @@
+Vim configuration needs the following to function properly:
+- Run vim for the first time and issue the following command: :PlugInstall
+- You may need the following packages installed on your system if you enable CoC:
+    nodejs (to enable coc.vim)
