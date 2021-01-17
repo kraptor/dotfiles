@@ -1,0 +1,5 @@
+[credential]
+	helper = store
+[user]
+	name = kraptor
+	email = kraptor@kraptor.com
