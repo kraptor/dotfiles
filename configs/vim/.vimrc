@@ -23,16 +23,18 @@ syntax on
 set bg=dark
 
 " Add easy switch between buffers
-nnoremap <silent> <A-Left> :bp<CR>
-nnoremap <silent> <A-Right> :bn<CR>
+nnoremap <C-w> :bd<CR>
+nnoremap <C-j> :bp<CR>
+nnoremap <C-ñ> :bn<CR>
+nnoremap <C-Tab> :bn<CR>
 "nnoremap <silent> <A-Left> :tabprevious<CR>
 "nnoremap <silent> <A-Right> :tabnext<CR>
 
 " Add easy switch between windows
-nnoremap <silent> <S-A-Up> :wincmd k<CR>
-nnoremap <silent> <S-A-Down> :wincmd j<CR>
-nnoremap <silent> <S-A-Left> :wincmd h<CR>
-nnoremap <silent> <S-A-Right> :wincmd l<CR>
+"nnoremap <silent> <S-A-Up> :wincmd k<CR>
+"nnoremap <silent> <S-A-Down> :wincmd j<CR>
+"nnoremap <silent> <S-A-Left> :wincmd h<CR>
+"nnoremap <silent> <S-A-Right> :wincmd l<CR>
 
 
 " Key bindings
@@ -45,7 +47,7 @@ autocmd vimenter * ++nested colorscheme gruvbox
 
 " Configure airline
 let g:airline#extensions#tabline#enabled = 1
-"let g:airline_theme='simple'
+let g:airline_theme='simple'
 
 " Configure NERDCommenter
 "set <C-\>=^ç
