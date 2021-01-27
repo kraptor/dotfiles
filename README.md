@@ -2,10 +2,11 @@
 
 This is a repository of personal configuration files for various linux utilities. Feel free to use as you wish.
 
-# Directly copying the files
-All configuration files are stored under `config/XXX` folder. Copy those files you want to your `$HOME` folder.
+There are two ways to install the configuration files:
 
-# Use the simple dotinstall.py script
+- Directly copying the files
+    All configuration files are stored under `config/XXX` folder. Copy those files you want to your `$HOME` folder.
+- Use the simple dotinstall.py script
 
 ## Dependencies:
 - Python 3.4+
