@@ -1,4 +1,4 @@
-# Personal dotfiles for configuration
+# Personal dotfiles
 
 This is a repository of personal configuration files for various linux utilities. Feel free to use as you wish.
 
