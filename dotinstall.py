@@ -1,3 +1,5 @@
+#!/bin/python3
+
 from typing import List, Optional, Tuple, Iterable
 
 import os
