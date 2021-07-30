@@ -3,3 +3,5 @@
 [user]
 	name = kraptor
 	email = kraptor@kraptor.com
+[init]
+	defaultBranch = master
