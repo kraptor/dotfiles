@@ -38,7 +38,7 @@ $ python dotinstall.py list
 $ python dotinstall.py install -n XXX
 ```
 
-> **NOTE:** you can force the intallation (even if the target file exists) by supplying the option `--overwrite`
+> **NOTE:** you can force the installation (even if the target file exists) by supplying the option `--overwrite`
 
 ## Install modes:
 There are two installation modes: `Copy` and `Link`.
