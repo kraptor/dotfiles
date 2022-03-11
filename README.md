@@ -1,6 +1,6 @@
 # Personal dotfiles
 
-This is a repository of personal configuration files for various linux utilities. Feel free to use as you wish.
+Personal configuration files for various linux utilities. Feel free to use as you wish.
 
 There are two ways to install the configuration files:
 
