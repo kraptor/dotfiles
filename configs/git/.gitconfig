@@ -1,5 +1,6 @@
 [credential]
-	helper = store
+
+	helper = libsecret
 [user]
 	name = kraptor
 	email = kraptor@kraptor.com
