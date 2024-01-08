@@ -1,0 +1,48 @@
+[colors.bright]
+black = "0x41505e"
+blue = "0x5ec4ff"
+cyan = "0x70e1e8"
+green = "0x8bd49c"
+magenta = "0xe27e8d"
+red = "0xd95468"
+white = "0xffffff"
+yellow = "0xebbf83"
+
+[colors.cursor]
+cursor = "CellForeground"
+text = "CellBackground"
+
+[colors.normal]
+black = "0x333f4a"
+blue = "0x539afc"
+cyan = "0x70e1e8"
+green = "0x8bd49c"
+magenta = "0xb62d65"
+red = "0xd95468"
+white = "0xb7c5d3"
+
+[colors.primary]
+background = "0x171d23"
+foreground = "0xffffff"
+
+[cursor.style]
+shape = "block"
+
+[font]
+size = 10
+
+[font.normal]
+family = "JetBrains Mono"
+
+[font.offset]
+x = 0
+y = -1
+
+[window]
+decorations = "None"
+dynamic_padding = true
+opacity = 0.85
+
+[window.padding]
+x = 8
+y = 8
