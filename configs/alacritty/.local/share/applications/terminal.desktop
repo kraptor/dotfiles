@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.1
+Type=Application
+Name=Terminal
+Comment=Terminal
+Icon=utilities-terminal-symbolic
+Exec=/usr/bin/alacritty -e tmux
+Actions=
+Categories=Applications;X-GNOME-Other
