@@ -1,3 +1,6 @@
+[terminal.shell]
+program = "tmux"
+
 [colors.bright]
 black = "0x41505e"
 blue = "0x5ec4ff"
@@ -42,7 +45,7 @@ y = -3
 [window]
 decorations = "None"
 dynamic_padding = true
-opacity = 0.85
+opacity = 1
 
 [window.padding]
 x = 4
